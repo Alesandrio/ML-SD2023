@@ -203,6 +203,7 @@ class Predictor:
         return result_df, last_date, text
 
 
+    # Функция для создания словаря, в котором содержится прогноз на все акции на заданное количество дней
     def predict_sma_tickers(tickers, stocks_data, target_column=['price'], window_sizes=np.arange(2, 31), test_size=31):
         result_dict = {}  # Словарь для сохранения результатов
         for ticker, data_frame in stocks_data.items():
@@ -216,3 +217,18 @@ class Predictor:
             print(text_result,'\n')
             print(f'---'*25, '\n')
         return result_dict, today_result
+
+
+    # Функция для создания словарей с прогнозами на 3, 7, 14 и 31 день
+    def calculate_and_save_predictions(
+        tickers, stocks_data, target_column,
+        window_sizes_3_day, test_size_3_day,
+        window_sizes_7_day, test_size_7_day,
+        window_sizes_14_day, test_size_14_day,
+        window_sizes_31_day, test_size_31_day
+    ):
+        ds_predict_3_day, today = Predictor.predict_sma_tickers(tickers, stocks_data, target_column, window_sizes_3_day, test_size_3_day)
+        ds_predict_7_day, today = Predictor.predict_sma_tickers(tickers, stocks_data, target_column, window_sizes_7_day, test_size_7_day)
+        ds_predict_14_day, today = Predictor.predict_sma_tickers(tickers, stocks_data, target_column, window_sizes_14_day, test_size_14_day)
+        ds_predict_31_day, today = Predictor.predict_sma_tickers(tickers, stocks_data, target_column, window_sizes_31_day, test_size_31_day)
+        return ds_predict_3_day, ds_predict_7_day, ds_predict_14_day, ds_predict_31_day, today
