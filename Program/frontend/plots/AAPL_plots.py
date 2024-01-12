@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 name_company = f'Apple Inc (AAPL)'
 
 # Импорт данных
-file_path_3_day = 'ML-SD2023\\Program\\data_predictions\\AAPL_3_day.csv'
-file_path_7_day = 'ML-SD2023\\Program\\data_predictions\\AAPL_7_day.csv'
-file_path_14_day = 'ML-SD2023\\Program\\data_predictions\\AAPL_14_day.csv'
-file_path_31_day = 'ML-SD2023\\Program\\data_predictions\\AAPL_31_day.csv'
-file_path_today = 'ML-SD2023\\Program\\data_predictions\\today.csv'
+file_path_3_day = 'ML-SD2023\\Program\\frontend\\data_predictions\\AAPL_3_day.csv'
+file_path_7_day = 'ML-SD2023\\Program\\frontend\\data_predictions\\AAPL_7_day.csv'
+file_path_14_day = 'ML-SD2023\\Program\\frontend\\data_predictions\\AAPL_14_day.csv'
+file_path_31_day = 'ML-SD2023\\Program\\frontend\\data_predictions\\AAPL_31_day.csv'
+file_path_today = 'ML-SD2023\\Program\\frontend\\data_predictions\\today.csv'
 df_3_day = pd.read_csv(file_path_3_day)
 df_7_day = pd.read_csv(file_path_7_day)
 df_14_day = pd.read_csv(file_path_14_day)

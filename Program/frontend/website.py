@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import os
 
 # Определение страницы "О проекте"
 def about_project():
@@ -17,90 +17,96 @@ def stock_page(stock_symbol):
 
     # Добавляем график по кнопке "Прогноз на 3 дня"
     if st.button("Прогноз на 3 дня"):
-        # Импорт данных
-        file_path_3_day = f'ML-SD2023\\Program\\data_predictions\\{stock_symbol}_3_day.csv'
-        file_path_today = 'ML-SD2023\\Program\\data_predictions\\today.csv'
-        df_3_day = pd.read_csv(file_path_3_day)
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        # Узнаём сегоднящнюю дату (Если predict будет делаться каждый день, то и дата будет в csv свежая)
+        file_path_today = os.path.join(script_directory, 'data_predictions', 'today.csv')
         today_date = pd.read_csv(file_path_today)
         today = today_date['date'].iloc[0]
+        # Импорт прогнозных данных
+        file_path_3_day = os.path.join(script_directory, 'data_predictions', f'{stock_symbol}_3_day.csv')
+        df_3_day = pd.read_csv(file_path_3_day)
         # Построение графика
         df_future = df_3_day
         name_priod_company = f'{stock_symbol} - прогноз на 3 дня'
-        fig, ax = plt.subplots(figsize=(11, 6))
+        fig, ax = plt.subplots(figsize=(7, 4))
         plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
-        plt.plot(df_future['date'], df_future['target'], label='Rate', color='blue', linewidth=3)
-        plt.plot(df_future['date'], df_future['predict'], label='Predict', color='red', linewidth=3)
-        train_end_date = pd.to_datetime(today)
+        plt.plot(df_future['date'], df_future['target'], label='Rate, $', color='blue', linewidth=3)
+        plt.plot(df_future['date'], df_future['predict'], label='Predict, $', color='red', linewidth=3)
         ax.axvline(today, color='black', linestyle='--')
-        plt.xticks(rotation=45)
         plt.legend(loc='upper right')
-        plt.title(name_priod_company, loc="center", size=18, weight='bold')
+        plt.title(name_priod_company, loc="center", size=15, weight='bold')
         st.pyplot(fig)
     
-        # Добавляем график по кнопке "Прогноз на 7 дней"
+    # Добавляем график по кнопке "Прогноз на 7 дней"
     if st.button("Прогноз на 7 дней"):
-        # Импорт данных
-        file_path_7_day = f'ML-SD2023\\Program\\data_predictions\\{stock_symbol}_7_day.csv'
-        file_path_today = 'ML-SD2023\\Program\\data_predictions\\today.csv'
-        df_7_day = pd.read_csv(file_path_7_day)
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        # Узнаём сегоднящнюю дату (Если predict будет делаться каждый день, то и дата будет в csv свежая)
+        file_path_today = os.path.join(script_directory, 'data_predictions', 'today.csv')
         today_date = pd.read_csv(file_path_today)
         today = today_date['date'].iloc[0]
+        # Импорт прогнозных данных
+        file_path_7_day = os.path.join(script_directory, 'data_predictions', f'{stock_symbol}_7_day.csv')
+        df_7_day = pd.read_csv(file_path_7_day)
         # Построение графика
         df_future = df_7_day
         name_priod_company = f'{stock_symbol} - прогноз на 7 дней'
-        fig, ax = plt.subplots(figsize=(11, 6))
+        fig, ax = plt.subplots(figsize=(7, 4))
         plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
-        plt.plot(df_future['date'], df_future['target'], label='Rate', color='blue', linewidth=3)
-        plt.plot(df_future['date'], df_future['predict'], label='Predict', color='red', linewidth=3)
-        train_end_date = pd.to_datetime(today)
+        plt.plot(df_future['date'], df_future['target'], label='Rate, $', color='blue', linewidth=3)
+        plt.plot(df_future['date'], df_future['predict'], label='Predict, $', color='red', linewidth=3)
         ax.axvline(today, color='black', linestyle='--')
-        plt.xticks(rotation=45)
+        stride = 2
+        ax.set_xticks(df_future['date'][::stride])
         plt.legend(loc='upper right')
-        plt.title(name_priod_company, loc="center", size=18, weight='bold')
+        plt.title(name_priod_company, loc="center", size=15, weight='bold')
         st.pyplot(fig)
 
         # Добавляем график по кнопке "Прогноз на 14 дней"
     if st.button("Прогноз на 14 дней"):
-        # Импорт данных
-        file_path_14_day = f'ML-SD2023\\Program\\data_predictions\\{stock_symbol}_14_day.csv'
-        file_path_today = 'ML-SD2023\\Program\\data_predictions\\today.csv'
-        df_14_day = pd.read_csv(file_path_14_day)
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        # Узнаём сегоднящнюю дату (Если predict будет делаться каждый день, то и дата будет в csv свежая)
+        file_path_today = os.path.join(script_directory, 'data_predictions', 'today.csv')
         today_date = pd.read_csv(file_path_today)
         today = today_date['date'].iloc[0]
+        # Импорт прогнозных данных
+        file_path_14_day = os.path.join(script_directory, 'data_predictions', f'{stock_symbol}_14_day.csv')
+        df_14_day = pd.read_csv(file_path_14_day)
         # Построение графика
         df_future = df_14_day
         name_priod_company = f'{stock_symbol} - прогноз на 14 дней'
-        fig, ax = plt.subplots(figsize=(11, 6))
+        fig, ax = plt.subplots(figsize=(7, 4))
         plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
-        plt.plot(df_future['date'], df_future['target'], label='Rate', color='blue', linewidth=3)
-        plt.plot(df_future['date'], df_future['predict'], label='Predict', color='red', linewidth=3)
-        train_end_date = pd.to_datetime(today)
+        plt.plot(df_future['date'], df_future['target'], label='Rate, $', color='blue', linewidth=3)
+        plt.plot(df_future['date'], df_future['predict'], label='Predict, $', color='red', linewidth=3)
         ax.axvline(today, color='black', linestyle='--')
-        plt.xticks(rotation=45)
+        stride = 4
+        ax.set_xticks(df_future['date'][::stride])
         plt.legend(loc='upper right')
-        plt.title(name_priod_company, loc="center", size=18, weight='bold')
+        plt.title(name_priod_company, loc="center", size=15, weight='bold')
         st.pyplot(fig)
 
         # Добавляем график по кнопке "Прогноз на 31 день"
-    if st.button("Прогноз на 31 дней"):
-        # Импорт данных
-        file_path_31_day = f'ML-SD2023\\Program\\data_predictions\\{stock_symbol}_31_day.csv'
-        file_path_today = 'ML-SD2023\\Program\\data_predictions\\today.csv'
-        df_31_day = pd.read_csv(file_path_31_day)
+    if st.button("Прогноз на 31 день"):
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        # Узнаём сегоднящнюю дату (Если predict будет делаться каждый день, то и дата будет в csv свежая)
+        file_path_today = os.path.join(script_directory, 'data_predictions', 'today.csv')
         today_date = pd.read_csv(file_path_today)
         today = today_date['date'].iloc[0]
+        # Импорт прогнозных данных
+        file_path_31_day = os.path.join(script_directory, 'data_predictions', f'{stock_symbol}_31_day.csv')
+        df_31_day = pd.read_csv(file_path_31_day)
         # Построение графика
         df_future = df_31_day
-        name_priod_company = f'{stock_symbol} - прогноз на 31 дней'
-        fig, ax = plt.subplots(figsize=(11, 6))
+        name_priod_company = f'{stock_symbol} - прогноз на 31 день'
+        fig, ax = plt.subplots(figsize=(7, 4))
         plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
-        plt.plot(df_future['date'], df_future['target'], label='Rate', color='blue', linewidth=3)
-        plt.plot(df_future['date'], df_future['predict'], label='Predict', color='red', linewidth=3)
-        train_end_date = pd.to_datetime(today)
+        plt.plot(df_future['date'], df_future['target'], label='Rate, $', color='blue', linewidth=3)
+        plt.plot(df_future['date'], df_future['predict'], label='Predict, $', color='red', linewidth=3)
         ax.axvline(today, color='black', linestyle='--')
-        plt.xticks(rotation=45)
+        stride = 10
+        ax.set_xticks(df_future['date'][::stride])
         plt.legend(loc='upper right')
-        plt.title(name_priod_company, loc="center", size=18, weight='bold')
+        plt.title(name_priod_company, loc="center", size=15, weight='bold')
         st.pyplot(fig)
 
 
